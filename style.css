@@ -1,0 +1,37 @@
+/* some colors you may find useful:
+  #115ff4
+  #060ce9
+  #28a200
+  #8d2ab5
+  #74119c
+*/
+body {
+  background-color: #060ce9;
+  text-align: center;
+}
+
+#btn {
+  display: block;
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+  border: 4px solid;
+  margin: 0px auto 20px auto;
+  cursor: pointer;
+  font-family: Verdana, Tahoma, sans-serif;
+  font-size: 1rem;
+  color: yellow;
+  background-color: grey;
+}
+
+.table {
+  background-color: blue;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  text-align: center;
+  vertical-align: middle;
+}
+
+h1 {
+  color: red;
+}
