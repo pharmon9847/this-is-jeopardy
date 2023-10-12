@@ -17,48 +17,30 @@
 //    },
 //    ...
 //  ]
-
 let categories = [];
-const numberOfCategories = 6;
-const numberOfClues = 5;
+const numOfCategories = 6;
+const numOfClues = 5;
 
-/** Get NUM_CATEGORIES random category from API.
- *
- * Returns array of category ids
- */
-
+/** Get NUM_CATEGORIES random category from API. */
 async function getCategoryIds() {
-  const response = await axios.get(
-    "https://jservice.io/api/categories?count=100"
-  );
-  const categoryIds = response.data.map((result) => result.id);
-  return _.sampleSize(categoryIds, numberOfCategories);
+  const res = await axios.get(`https://jservice.io/api/categories?count=100`);
+  const catIds = res.data.map((result) => result.id);
+  return _.sampleSize(catIds, numOfCategories); //Returns an array of 6 randomly picked categories
+  //Lodash -Gets n random elements at unique keys from collection up to the size of collection.
 }
 
-/** Return object with data about a category:
- *
- *  Returns { title: "Math", clues: clue-array }
- *
- * Where clue-array is:
- *   [
- *      {question: "Hamlet Author", answer: "Shakespeare", showing: null},
- *      {question: "Bell Jar Author", answer: "Plath", showing: null},
- *      ...
- *   ]
- */
-
+/** Returns object with data about a category: */
 async function getCategory(catId) {
-  const response = await axios.get(
-    "https://jservice.io/api/category?id=${catId}"
-  );
-  let allClues = response.data.allClues;
-  let randomClues = _.sampleSize(allClues, numberOfClues);
+  const res = await axios.get(`https://jservice.io/api/category?id=${catId}`);
+
+  let allClues = res.data.clues;
+  let randomClues = _.sampleSize(allClues, numOfClues); //randomly selects 5 questions for category
   let clues = randomClues.map((clue) => ({
     question: clue.question,
     answer: clue.answer,
     showing: null,
   }));
-  return { title: response.data.title, clues };
+  return { title: res.data.title, clues };
 }
 
 /** Fill the HTML table#jeopardy with the categories & cells for questions.
@@ -68,7 +50,6 @@ async function getCategory(catId) {
  *   each with a question for each category in a <td>
  *   (initally, just show a "?" where the question/answer would go.)
  */
-
 async function fillTable() {
   //add header row for categories and rows for clues; append both to table board
   $("#board")
@@ -99,7 +80,6 @@ async function fillTable() {
  * - if currently "question", show answer & set .showing to "answer"
  * - if currently "answer", ignore click
  * */
-
 function handleClick(evt) {
   let id = evt.target.id;
   let [catId, clueId] = id.split("-"); //turns td id into an array, '-' is the separator
@@ -126,7 +106,6 @@ function handleClick(evt) {
 /** Wipe the current Jeopardy board, show the loading spinner,
  * and update the button used to fetch data.
  */
-
 function showLoadingView() {
   $("#loader").show(2000, hideLoadingView);
   $("#startGame").hide();
@@ -136,21 +115,19 @@ function showLoadingView() {
 }
 
 /** Remove the loading spinner and update the button used to fetch data. */
-
 function hideLoadingView() {
   $("#loader").hide();
   $("#game").show();
   $("#startGame").show();
-  $("#startGame").text("Reset Game");
+  $("#startGame").text("Start New Game");
 }
 
-/** Start game:
- *
+// START GAME ON BUTTON CLICK
+/**
  * - get random category Ids
  * - get data for each category
  * - create HTML table
  * */
-
 async function setupAndStart() {
   categories = [];
   let catIds = await getCategoryIds();
@@ -162,11 +139,7 @@ async function setupAndStart() {
 }
 
 /** On click of start / restart button, set up game. */
-
-// TODO
 $("#startGame").on("click", showLoadingView);
 
 /** On page load, add event handler for clicking clues */
-
-// TODO
 $("#board").on("click", "td", handleClick);
