@@ -95,6 +95,7 @@ function handleClick(evt) {
     clue.showing = "answer";
     evt.target.style.backgroundColor = "#2a3698";
     evt.target.style.boxShadow = "1px 1px 10px rgb(16, 14, 59) inset";
+    evt.target.style.color = "red";
   } else {
     //if already showing answer; ignore
     return;
