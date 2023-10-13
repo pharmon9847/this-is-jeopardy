@@ -6,7 +6,8 @@
   #74119c
 */
 body {
-  background-color: #060ce9;
+  /* background-color: #060ce9; */
+  background-color: black;
   text-align: center;
 }
 
@@ -14,13 +15,14 @@ h1 {
   /* color: white; */
   color: orange;
   font-size: 5em;
-  text-shadow: rgb(246, 81, 76) 2px 2px;
+  text-shadow: red 3px 3px;
   /* text-shadow: red; */
 }
 
 #board {
   width: 100%;
-  background-color: rgb(49, 109, 194);
+  /* background-color: rgb(49, 109, 194); */
+  background-color: #060ce9;
   vertical-align: center;
   /* overflow-x: auto; */
 }
@@ -29,17 +31,19 @@ table,
 th,
 td {
   border-collapse: collapse;
-  border: 8px solid #2a3698;
+  /* border: 8px solid #2a3698; */
+  border: 8px solid black;
   margin: auto;
 }
 
 th {
-  background-color: rgb(38, 100, 189);
+  /* background-color: rgb(38, 100, 189); */
+  background-color: #060ce9;
   text-transform: uppercase;
   font-family: Helvetica, sans-serif;
   font-weight: bold;
-  text-shadow: rgb(172, 38, 113) 1px 1px;
-  height: 4em;
+  text-shadow: rgb(172, 38, 113) 2px 2px;
+  height: 5em;
   color: white;
   padding: 10px;
 }
@@ -49,9 +53,7 @@ td {
   width: 100px;
   padding: 8px;
   line-height: 1.4;
-}
-
-.icon {
+  color: gold;
 }
 
 td:after {
@@ -59,7 +61,7 @@ td:after {
 }
 
 td:hover {
-  background-color: rgb(104, 82, 249);
+  background-color: lightslategray;
 }
 
 /* Center the loader */
@@ -69,12 +71,12 @@ td:hover {
   z-index: 1;
   top: 20%;
   left: 50%;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #28a200;
-  border-right: 16px solid rgb(104, 82, 249);
-  border-bottom: 16px solid rgb(172, 38, 113);
-  border-left: 16px solid rgb(49, 109, 194);
+  /* border: 50px solid #f3f3f3; */
+  border-radius: 75%;
+  border-top: 15px solid yellow;
+  border-right: 15px solid fuchsia;
+  border-bottom: 15px solid blue;
+  border-left: 15px solid tomato;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
@@ -82,15 +84,15 @@ td:hover {
 @-webkit-keyframes spin {
   0% {
     opacity: 1;
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     margin: 0 -40px;
     -webkit-transform: rotate(0deg);
   }
   100% {
     opacity: 1;
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     margin: 0 -40px;
     -webkit-transform: rotate(360deg);
   }
@@ -99,15 +101,15 @@ td:hover {
 @keyframes spin {
   0% {
     opacity: 1;
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     margin: 0 -40px;
     transform: rotate(0deg);
   }
   100% {
     opacity: 1;
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     margin: 0 -40px;
     transform: rotate(360deg);
   }
@@ -124,22 +126,18 @@ td:hover {
 #restartGame {
   font-size: 40px;
   color: red;
-  /* color: rgb(104, 82, 249); */
-  background: bisque;
-  /* background: rgb(233, 233, 233); */
-  /* background: red; */
-  padding: 0.3em;
+  background: yellow;
+  padding: 0.5em;
   margin: 1em;
   border: 4px solid red;
-  /* border: 2px solid rgb(104, 82, 249); */
-  border-radius: 16px;
+  border-radius: 15px;
 }
 
 #startGame:hover,
 #restartGame:hover {
   background: rgb(247, 164, 57);
-  border: 2px solid rgb(247, 164, 57);
-  color: white;
+  border: 4px solid red;
+  color: black;
   cursor: pointer;
   transition: background-color 0.1s ease-in-out;
 }
