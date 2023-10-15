@@ -29,10 +29,11 @@ const numberOfClues = 5;
 
 async function getCategoryIds() {
   const response = await axios.get(
-    "https://jservice.io/api/categories?count=100"
+    `https://jservice.io/api/categories?count=100`
   );
-  const categoryIds = response.data.map((result) => result.id);
-  return _.sampleSize(categoryIds, numberOfCategories);
+  const categoryIDs = response.data.map((result) => result.id);
+  //   return an array of 6 random categories
+  return _.sampleSize(categoryIDs, numberOfCategories);
 }
 
 /** Return object with data about a category:
@@ -49,9 +50,11 @@ async function getCategoryIds() {
 
 async function getCategory(catId) {
   const response = await axios.get(
-    "https://jservice.io/api/category?id=${catId}"
+    `https://jservice.io/api/category?id=${catId}`
   );
-  let allClues = response.data.allClues;
+
+  let allClues = response.data.clues;
+  //   randomly selects 5 questions for category
   let randomClues = _.sampleSize(allClues, numberOfClues);
   let clues = randomClues.map((clue) => ({
     question: clue.question,
@@ -70,24 +73,26 @@ async function getCategory(catId) {
  */
 
 async function fillTable() {
-  //add header row for categories and rows for clues; append both to table board
+  // add row for categories and rows for clues
+  // append both to table
   $("#board")
     .append($("<thead>").attr("id", "header"))
     .append($("<tbody>").attr("id", "clues"));
 
-  //add header cells for numOfCategories
-  for (let x = 0; x < numOfCategories; x++) {
-    $("thead").append($("<th>").attr("id", x).text(categories[x].title));
+  // add header cells for numberOfCategories
+  for (let w = 0; w < numberOfCategories; w++) {
+    $("thead").append($("<th>").attr("id", w).text(categories[w].title));
   }
   $("#board").append($("thead"));
 
-  // creates main board based on set numOfCategories (WIDTH) x numOfClues (HEIGHT)
-  // add rows with questions for each category
-  for (let y = 0; y < numOfClues; y++) {
-    $("tbody").append($("<tr>").attr("id", `${y}`));
-    // creates a td and appends it to the tr above, loops until itiration is equal to numOfCategories (width)
-    for (let x = 0; x < numOfCategories; x++) {
-      $(`#${y}`).append($("<td>").attr("id", `${x}-${y}`).text("?"));
+  // creates main board based on numberOfCategories x numberOfClues
+  // adds rows with questions for each category
+  for (let p = 0; p < numberOfClues; p++) {
+    $("tbody").append($("<tr>").attr("id", `${p}`));
+    // creates a td and appends it to the tr above
+    // loops until equal to numberOfCategories
+    for (let b = 0; b < numberOfCategories; b++) {
+      $(`#${p}`).append($("<td>").attr("id", `${b}-${p}`).text("?"));
     }
   }
 }
@@ -100,26 +105,29 @@ async function fillTable() {
  * - if currently "answer", ignore click
  * */
 
-function handleClick(evt) {
-  let id = evt.target.id;
-  let [catId, clueId] = id.split("-"); //turns td id into an array, '-' is the separator
+function handleClick(event) {
+  let id = event.target.id;
+  let [catId, clueId] = id.split("-");
   let clue = categories[catId].clues[clueId];
   let text;
 
   if (clue.showing === null) {
     text = clue.question;
     clue.showing = "question";
-    evt.target.style.color = "white";
+    event.target.style.color = "white";
   } else if (clue.showing === "question") {
     text = clue.answer;
     clue.showing = "answer";
-    evt.target.style.backgroundColor = "#2a3698";
-    evt.target.style.boxShadow = "1px 1px 10px rgb(16, 14, 59) inset";
+    event.target.style.backgroundColor = "lightskyblue";
+    event.target.style.boxShadow = "1px 1px 10px black inset";
+    event.target.style.color = "red";
+    event.target.style.fontWeight = "bold";
+    event.target.style.textShadow = "grey 2px 2px";
   } else {
-    //if already showing answer; ignore
+    // ignore if answer already showing
     return;
   }
-  // Update text of cell
+  // update cell text
   $(`#${catId}-${clueId}`).text(text);
 }
 
@@ -128,8 +136,8 @@ function handleClick(evt) {
  */
 
 function showLoadingView() {
-  $("#loader").show(2000, hideLoadingView);
-  $("#startGame").hide();
+  $("#spinner").show(2000, hideLoadingView);
+  $("#beginGame").hide();
   $("#game").hide();
   $("#board").empty();
   setupAndStart();
@@ -138,10 +146,10 @@ function showLoadingView() {
 /** Remove the loading spinner and update the button used to fetch data. */
 
 function hideLoadingView() {
-  $("#loader").hide();
+  $("#spinner").hide();
   $("#game").show();
-  $("#startGame").show();
-  $("#startGame").text("Reset Game");
+  $("#beginGame").show();
+  $("#beginGame").text("Begin New Game");
 }
 
 /** Start game:
@@ -153,20 +161,18 @@ function hideLoadingView() {
 
 async function setupAndStart() {
   categories = [];
-  let catIds = await getCategoryIds();
+  let categoryIDs = await getCategoryIds();
 
-  for (let id of catIds) {
-    categories.push(await getCategory(id)); //push (6) sampleSize into categories array
+  for (let id of categoryIDs) {
+    categories.push(await getCategory(id));
   }
   fillTable();
 }
 
 /** On click of start / restart button, set up game. */
 
-// TODO
-$("#startGame").on("click", showLoadingView);
+$("#beginGame").on("click", showLoadingView);
 
 /** On page load, add event handler for clicking clues */
 
-// TODO
 $("#board").on("click", "td", handleClick);

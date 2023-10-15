@@ -6,54 +6,51 @@
   #74119c
 */
 body {
-  /* background-color: #060ce9; */
   background-color: black;
   text-align: center;
 }
 
 h1 {
-  /* color: white; */
   color: orange;
   font-size: 5em;
   text-shadow: red 3px 3px;
-  /* text-shadow: red; */
 }
 
 #board {
   width: 100%;
-  /* background-color: rgb(49, 109, 194); */
   background-color: #060ce9;
   vertical-align: center;
-  /* overflow-x: auto; */
 }
 
 table,
 th,
 td {
   border-collapse: collapse;
-  /* border: 8px solid #2a3698; */
   border: 8px solid black;
   margin: auto;
+  table-layout: fixed;
 }
 
 th {
-  /* background-color: rgb(38, 100, 189); */
   background-color: #060ce9;
   text-transform: uppercase;
-  font-family: Helvetica, sans-serif;
   font-weight: bold;
-  text-shadow: rgb(172, 38, 113) 2px 2px;
-  height: 5em;
-  color: white;
+  text-shadow: grey 2px 2px;
+  height: 7em;
+  color: yellow;
+  text-decoration: underline black;
+  text-decoration-thickness: 3px;
+  font-size: large;
   padding: 10px;
 }
 
 td {
-  height: 100px;
-  width: 100px;
-  padding: 8px;
+  height: 150px;
+  width: 120px;
+  padding: 10px;
   line-height: 1.4;
-  color: gold;
+  color: yellow;
+  font-size: 200%;
 }
 
 td:after {
@@ -61,22 +58,22 @@ td:after {
 }
 
 td:hover {
-  background-color: lightslategray;
+  background-color: tan;
+  cursor: pointer;
 }
 
-/* Center the loader */
-#loader {
+/* Center the spinner */
+#spinner {
   display: none;
   position: absolute;
   z-index: 1;
   top: 20%;
   left: 50%;
-  /* border: 50px solid #f3f3f3; */
   border-radius: 75%;
-  border-top: 15px solid yellow;
-  border-right: 15px solid fuchsia;
-  border-bottom: 15px solid blue;
-  border-left: 15px solid tomato;
+  border-top: 25px solid yellow;
+  border-right: 25px solid fuchsia;
+  border-bottom: 25px solid blue;
+  border-left: 25px solid tomato;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
@@ -84,15 +81,15 @@ td:hover {
 @-webkit-keyframes spin {
   0% {
     opacity: 1;
-    width: 75px;
-    height: 75px;
+    width: 150px;
+    height: 150px;
     margin: 0 -40px;
     -webkit-transform: rotate(0deg);
   }
   100% {
     opacity: 1;
-    width: 75px;
-    height: 75px;
+    width: 150px;
+    height: 150px;
     margin: 0 -40px;
     -webkit-transform: rotate(360deg);
   }
@@ -101,15 +98,15 @@ td:hover {
 @keyframes spin {
   0% {
     opacity: 1;
-    width: 75px;
-    height: 75px;
+    width: 150px;
+    height: 150px;
     margin: 0 -40px;
     transform: rotate(0deg);
   }
   100% {
     opacity: 1;
-    width: 75px;
-    height: 75px;
+    width: 150px;
+    height: 150px;
     margin: 0 -40px;
     transform: rotate(360deg);
   }
@@ -121,11 +118,10 @@ td:hover {
   margin: 50px;
 }
 
-/* start and restart button styling */
-#startGame,
-#restartGame {
-  font-size: 40px;
-  color: red;
+#beginGame,
+#nextGame {
+  font-size: 30px;
+  color: #060ce9;
   background: yellow;
   padding: 0.5em;
   margin: 1em;
@@ -133,10 +129,10 @@ td:hover {
   border-radius: 15px;
 }
 
-#startGame:hover,
-#restartGame:hover {
-  background: rgb(247, 164, 57);
-  border: 4px solid red;
+#beginGame:hover,
+#nextGame:hover {
+  background: green;
+  border: 4px solid magenta;
   color: black;
   cursor: pointer;
   transition: background-color 0.1s ease-in-out;
